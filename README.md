@@ -1,2 +1,2 @@
 # GOLANG-BASIC
-perjalan menuju golang terbaik sepanjang masa
+perjalanan menuju golang terbaik sepanjang masa
