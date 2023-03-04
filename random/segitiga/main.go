@@ -3,17 +3,17 @@ package main
 import "fmt"
 
 func main() {
-	var alas float32 = 4
-	var tinggi float32 = 6
-	luas := 0.5 * alas * tinggi
+	var pedestal float32 = 4
+	var tall float32 = 6
+	wide := 0.5 * pedestal * tall
 
-	fmt.Println(luas)
+	fmt.Println(wide)
 
 	//menghitung luas banyak segitiga
-	var jml float32
-	fmt.Scanln(&jml)
+	var amount float32
+	fmt.Scanln(&amount)
 
-	hasil := luas * jml
+	result := wide * amount
 
-	fmt.Println(hasil)
+	fmt.Println(result)
 }
