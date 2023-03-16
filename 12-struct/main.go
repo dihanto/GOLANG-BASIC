@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-type person struct {
+type Person struct {
 	Name    string
 	Age     int
 	Hobbies []string
@@ -11,9 +11,16 @@ type person struct {
 type Employee struct {
 	// Name     string
 	// Age      int
-	person
+	Person
 	Division string
 	Salary   float32
+}
+
+func (person Person) Greet() string {
+	return fmt.Sprintf("Hello I am %s", person.Name)
+}
+func (person *Person) ChangeName(newName string) {
+	person.Name = newName
 }
 
 func main() {
@@ -22,6 +29,9 @@ func main() {
 	employee1.Age = 12
 	employee1.Division = "IT"
 	employee1.Salary = 20000.00
+	employee1.Person.ChangeName("Usman")
+	fmt.Println(employee1.Person.Greet())
+	fmt.Println(employee1)
 	// employee2 := Employee{
 	// 	Name:     "Doe",
 	// 	Age:      22,
@@ -34,11 +44,11 @@ func main() {
 	fillStruct(&employee3)
 	fmt.Println(employee3)
 	employee4 := struct {
-		person   person
+		person   Person
 		Division string
 		Salary   float32
 	}{
-		person: person{
+		person: Person{
 			Name: "Ujang",
 			Age:  22,
 		},
@@ -48,7 +58,7 @@ func main() {
 	fmt.Println(employee4)
 	employees := []Employee{
 		{
-			person: person{
+			Person: Person{
 				Name: "udi",
 				Age:  11,
 			},
@@ -58,7 +68,7 @@ func main() {
 	}
 	employees = append(employees, employee3)
 	employees = append(employees, Employee{
-		person: person{
+		Person: Person{
 			Name:    "Umar",
 			Age:     32,
 			Hobbies: []string{"Hiking", "Gaming"},
@@ -67,8 +77,8 @@ func main() {
 		Salary:   22103.00,
 	})
 	fmt.Println(employees)
-	fmt.Println(employees[2].person.Name)
-	fmt.Println(employees[2].person.Hobbies[1])
+	fmt.Println(employees[2].Person.Name)
+	fmt.Println(employees[2].Person.Hobbies[1])
 }
 func fillStruct(employee *Employee) {
 	employee.Name = "Kurniawan"
