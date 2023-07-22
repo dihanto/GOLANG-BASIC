@@ -2,10 +2,14 @@ package main
 
 import (
 	"bufio"
+	"database/sql"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
+
+	_ "github.com/lib/pq"
 )
 
 type Student struct {
@@ -63,7 +67,14 @@ func Input() {
 				Gender: gender,
 			}
 			std = append(std, student)
-			// std = append(std, Student{Name: name, Age: age, Major: major, Gender: gender})
+
+			db := initDatabaseConnection()
+			query := "INSERT INTO student (name, age, major, gender) VALUES ($1,$2,$3,$4)"
+			_, err := db.Exec(query, student.Name, student.Age, student.Major, student.Gender)
+			if err != nil {
+				log.Println(err)
+			}
+
 		} else if input == 2 {
 			if len(std) == 0 {
 				fmt.Println("No students found")
@@ -143,6 +154,10 @@ func GenderInput() string {
 	}
 }
 
-// func StringChecker(input interface{}) bool {
-// 	return reflect.TypeOf(input).Kind() != reflect.String
-// }
+func initDatabaseConnection() *sql.DB {
+	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=postgres dbname=cli sslmode=disable")
+	if err != nil {
+		fmt.Sprintln("Failed to connect database")
+	}
+	return db
+}
